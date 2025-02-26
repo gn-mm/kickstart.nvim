@@ -88,7 +88,37 @@ P.S. You can delete this when you're done too. It's your config now! :)
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+vim.g.maplocalleader = 'ç'
+
+-- Mateus: Some of my ancient opts
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
+vim.opt.wrap = false
+--vim.keymap.set('n', '<leader><leader>x', '<cmd>source %<CR>', { desc = 'Source whole lua file' })
+vim.keymap.set('n', '<leader>x', ':.lua<CR>', { desc = 'E[X]ecute line as lua' })
+vim.keymap.set('v', '<leader>x', ':lua<CR>', { desc = 'E[X]ecute selection as lua' })
+vim.keymap.set('n', '-', '<cmd>Oil<CR>', { desc = 'oil.nvim' })
+vim.keymap.set('n', 'Q', '<cmd>w!<CR>', { desc = 'Save file shortcut' })
+vim.keymap.set('v', 'S', ':s/\\%V/&/g<Left><Left><Left><Left>', { desc = '[S]ubstitute in selection' })
+vim.keymap.set('n', '<localleader>n', ':set rnu!<CR>', { desc = 'Toggle relative [n]umbers' })
+vim.keymap.set('n', '<localleader>d', '0D', { desc = '[D]elete line' })
+vim.keymap.set('n', '<localleader><localleader>', 'i<Esc>/<++><CR>"_c4l', { desc = 'Go to macro <++>' })
+vim.keymap.set('i', '<localleader><localleader>', '<Esc>/<++><CR>"_c4l', { desc = 'Go to macro <++>' })
+vim.keymap.set('n', '<CR>', 'o<Esc>0d$', { desc = 'Enter a new line' })
+vim.keymap.set('i', '<C-f>', '<C-x><C-f>', { desc = 'Complete file name' })
+
+-- Mateus: terminal window below
+local job_id = 0
+vim.keymap.set('n', '<leader>T', function()
+  vim.cmd.vnew()
+  vim.cmd.term()
+  vim.cmd.wincmd 'J'
+  vim.api.nvim_win_set_height(0, 15)
+  job_id = vim.bo.channel
+end, { desc = '[T]erminal' })
+vim.keymap.set('n', '<leader>example', function()
+  vim.fn.chansend(job_id, { "echo 'hi'\r\n" })
+end)
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
@@ -695,8 +725,6 @@ require('lazy').setup({
         },
       }
 
-      --<++>
-
       -- Ensure the servers and tools above are installed
       --
       -- To check the current status of installed tools and/or manually install
@@ -731,6 +759,16 @@ require('lazy').setup({
         },
       }
     end,
+  },
+
+  { -- Mateus: This is for a cute file tree viewer
+    'stevearc/oil.nvim',
+    ---@module 'oil'
+    ---@type oil.SetupOpts
+    opts = {},
+    -- Optional dependencies
+    -- dependencies = { { 'echasnovski/mini.icons', opts = {} } },
+    dependencies = { 'nvim-tree/nvim-web-devicons' }, -- use if you prefer nvim-web-devicons
   },
 
   { -- Autoformat
@@ -848,9 +886,10 @@ require('lazy').setup({
 
           -- If you prefer more traditional completion keymaps,
           -- you can uncomment the following lines
-          --['<CR>'] = cmp.mapping.confirm { select = true },
-          --['<Tab>'] = cmp.mapping.select_next_item(),
-          --['<S-Tab>'] = cmp.mapping.select_prev_item(),
+          ['<CR>'] = cmp.mapping.confirm { select = true },
+          ['<Tab>'] = cmp.mapping.select_next_item(),
+          ['<S-Tab>'] = cmp.mapping.select_prev_item(),
+          vim.api.nvim_del_augroup_by_id
 
           -- Manually trigger a completion from nvim-cmp.
           --  Generally you don't need this, because nvim-cmp will display
@@ -1032,3 +1071,6 @@ require('lazy').setup({
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+
+-- Mateus: after everything is loaded, set transparent background
+vim.api.nvim_command 'hi Normal guibg=NONE ctermbg=NONE'
