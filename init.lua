@@ -164,7 +164,6 @@ vim.opt.scrolloff = 10
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
--- Mateus: Did not understand...
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
@@ -528,7 +527,7 @@ require('lazy').setup({
           map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
 
           -- Find references for the word under your cursor.
-          map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+          map('grr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
 
           -- Jump to the implementation of the word under your cursor.
           --  Useful when your language has ways of declaring types without an actual implementation.
@@ -545,15 +544,18 @@ require('lazy').setup({
 
           -- Fuzzy find all the symbols in your current workspace.
           --  Similar to document symbols, except searches over your entire project.
+          --  Mateus: The keybinding below does not work.
           map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
           -- Rename the variable under your cursor.
           --  Most Language Servers support renaming across files, etc.
-          map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+          --  Mateus: 'grn' already does this in Neovim Nightly.
+          --map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
 
           -- Execute a code action, usually your cursor needs to be on top of an error
           -- or a suggestion from your LSP for this to activate.
-          map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', { 'n', 'x' })
+          --  Mateus: 'gra' already does this in Neovim Nightly.
+          --map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', { 'n', 'x' })
 
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header.
@@ -659,9 +661,13 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        -- clangd = {},
+        clangd = {},
         -- gopls = {},
-        -- pyright = {},
+        pyright = {},
+        texlab = {},
+        bashls = {},
+        html = {},
+        cssls = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -669,7 +675,7 @@ require('lazy').setup({
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`ts_ls`) will work just fine
-        -- ts_ls = {},
+        ts_ls = {},
         --
 
         lua_ls = {
@@ -687,6 +693,8 @@ require('lazy').setup({
           },
         },
       }
+
+      --<++>
 
       -- Ensure the servers and tools above are installed
       --
