@@ -102,6 +102,11 @@ vim.g.maplocalleader = 'ç'
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.wrap = false
+
+-- Disable beep sound
+vim.api.nvim_command 'set visualbell'
+vim.api.nvim_command 'set t_vb='
+
 --vim.keymap.set('n', '<leader><leader>x', '<cmd>source %<CR>', { desc = 'Source whole lua file' })
 vim.keymap.set('n', '<leader>x', ':.lua<CR>', { desc = 'E[X]ecute line as lua' })
 vim.keymap.set('v', '<leader>x', ':lua<CR>', { desc = 'E[X]ecute selection as lua' })
@@ -1041,6 +1046,7 @@ require('lazy').setup({
   -- install with yarn or npm
   {
     'iamcco/markdown-preview.nvim',
+    enabled = false,
     cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
     build = 'cd app && yarn install',
     init = function()
