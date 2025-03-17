@@ -110,6 +110,7 @@ vim.api.nvim_command 'set t_vb='
 --vim.keymap.set('n', '<leader><leader>x', '<cmd>source %<CR>', { desc = 'Source whole lua file' })
 vim.keymap.set('n', '<leader>x', ':.lua<CR>', { desc = 'E[X]ecute line as lua' })
 vim.keymap.set('v', '<leader>x', ':lua<CR>', { desc = 'E[X]ecute selection as lua' })
+vim.keymap.set('n', '<leader>m', ':%s/<C-v><C-m>//g<CR>') -- remove ^M at end of lines (WSL issue)
 vim.keymap.set('n', '-', '<cmd>Oil<CR>', { desc = 'oil.nvim' })
 vim.keymap.set('n', 'Q', '<cmd>w!<CR>', { desc = 'Save file shortcut' })
 vim.keymap.set('v', 'S', ':s/\\%V/&/g<Left><Left><Left><Left>', { desc = '[S]ubstitute in selection' })
@@ -1046,7 +1047,7 @@ require('lazy').setup({
   -- install with yarn or npm
   {
     'iamcco/markdown-preview.nvim',
-    enabled = false,
+    enabled = true,
     cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
     build = 'cd app && yarn install',
     init = function()
