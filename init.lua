@@ -118,6 +118,7 @@ vim.keymap.set('n', '<localleader>n', ':set rnu!<CR>', { desc = 'Toggle relative
 vim.keymap.set('n', '<localleader>d', '0D', { desc = '[D]elete line' })
 vim.keymap.set('n', '<localleader><localleader>', 'i<Esc>/<++><CR>"_c4l', { desc = 'Go to macro <++>' })
 vim.keymap.set('i', '<localleader><localleader>', '<Esc>/<++><CR>"_c4l', { desc = 'Go to macro <++>' })
+vim.keymap.set('n', '<localleader><w>', ':%s/\\s\\+$//e', { desc = 'Remove trailing white spaces' })
 vim.keymap.set('n', '<CR>', 'o<Esc>0d$', { desc = 'Enter a new line' })
 vim.keymap.set('i', '<C-f>', '<C-x><C-f>', { desc = 'Complete file name' })
 
@@ -996,7 +997,7 @@ require('lazy').setup({
       -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
       -- - sd'   - [S]urround [D]elete [']quotes
       -- - sr)'  - [S]urround [R]eplace [)] [']
-      require('mini.surround').setup()
+      --require('mini.surround').setup() -- disable because of annoying 's' timeout
 
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
