@@ -117,8 +117,8 @@ vim.keymap.set('n', '<localleader>n', ':set rnu!<CR>', { desc = 'Toggle relative
 vim.keymap.set('n', '<localleader>d', '0D', { desc = '[D]elete line' })
 vim.keymap.set('n', '<localleader><localleader>', 'i<Esc>/<++><CR>"_c4l', { desc = 'Go to macro <++>' })
 vim.keymap.set('i', '<localleader><localleader>', '<Esc>/<++><CR>"_c4l', { desc = 'Go to macro <++>' })
-vim.keymap.set('n', '<leader>m', '<cmd>%s/<C-v><C-m>//g<CR>', { desc = 'remove ^M at end of lines (WSL issue)' })
-vim.keymap.set('n', '<localleader>w', '<cmd>%s/\\s\\+$//e<CR>', { desc = 'Remove trailing white spaces' })
+vim.keymap.set('n', '<leader>m', ':%s/<C-v><C-m>//g<CR>', { desc = 'remove ^M at end of lines (WSL issue)' })
+vim.keymap.set('n', '<localleader>w', ':%s/\\s\\+$//e<CR>', { desc = 'Remove trailing white spaces' })
 vim.keymap.set('n', '<CR>', 'o<Esc>0d$', { desc = 'Enter a new line' })
 vim.keymap.set('i', '<C-f>', '<C-x><C-f>', { desc = 'Complete file name' })
 
